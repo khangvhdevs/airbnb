@@ -1,10 +1,19 @@
-import { AuthLayout } from "components/layouts";
+import { AuthLayout, MainLayout } from "components/layouts";
 import { PATH } from "constant";
-import { Login, Register } from "pages";
+import { Login, Register, Home } from "pages";
 import { RouteObject } from "react-router-dom";
 export const router: RouteObject[] = [
   {
     path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      }
+    ]
+  },
+  {
     element: <AuthLayout />,
     children: [
       {
