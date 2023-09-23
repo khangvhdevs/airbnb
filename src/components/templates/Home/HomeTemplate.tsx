@@ -10,8 +10,8 @@ export const HomeTemplate = () => {
   const { LocationPagination } = useSelector((state: RootState) => state.quanLyViTri)
   useEffect(() => {
     dispatch(getLocationPaginationThunk({ pageIndex: 1, pageSize: 8, keyword: null }))
+    document.title = "Nhà nghỉ dưỡng & Căn hộ cao cấp cho thuê - Airbnb"
   }, [])
-  console.log("🚀 ~ file: HomeTemplate.tsx:9 ~ HomeTemplate ~ LocationPagination:", LocationPagination)
   return (
     <Home>
       {/* Carousel */}
