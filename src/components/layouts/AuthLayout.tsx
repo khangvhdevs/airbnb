@@ -14,7 +14,7 @@ export const AuthLayout = () => {
           <img src="/images/logo.png" alt="" />
         </div>
         <div className="absolute top-0 left-0 w-full h-full bg-black z-10 opacity-50 "></div>
-        <div className="absolute w-[420px] p-[25px] top-1/2 left-1/2 bg-[rgba(0,0,0,.6)] z-20 -translate-x-1/2 -translate-y-1/2 rounded-xl">
+        <div className="absolute w-auto p-[25px] top-1/2 left-1/2 bg-[rgba(0,0,0,.6)] z-20 -translate-x-1/2 -translate-y-1/2 rounded-xl">
           <Outlet />
         </div>
       </div>

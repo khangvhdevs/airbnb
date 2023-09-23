@@ -1,5 +1,5 @@
 import { apiInstance } from "constant";
-import { LoginSchemaType } from "schema";
+import { LoginSchemaType, RegisterSchemaType } from "schema";
 import { Content, User } from "types";
 
 const api = apiInstance({
@@ -8,4 +8,5 @@ const api = apiInstance({
 
 export const quanLyNguoiDungServices = {
     login: (payload: LoginSchemaType) => api.post<ApiResponse<Content<User>>>('/signin',payload),
+    register: (payload: RegisterSchemaType) => api.post<ApiResponse<User>>('/signup',payload)
 }

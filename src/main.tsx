@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "store";
 import { StyleProvider } from "@ant-design/cssinjs";
+import Swal from "sweetalert2";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Provider store={store}>
@@ -17,3 +18,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </Provider>
   </BrowserRouter>
 );
+export let showSuccess = (title = "Thành Công") => {
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+};

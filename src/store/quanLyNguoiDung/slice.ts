@@ -21,7 +21,7 @@ const initialState:QuanLyNguoiDungInitialState = {
         },
         token: "",
     },
-    accessToken: localStorage.getItem("accessToken")
+    // accessToken: localStorage.getItem("accessToken")
 }
 
 const quanLyNguoiDungSlice = createSlice({
@@ -32,7 +32,6 @@ const quanLyNguoiDungSlice = createSlice({
 builder.addCase(loginThunk.fulfilled, (state,{payload}) =>{
     state.userLogin = payload
     console.log("payload",payload);
-    
     if(payload){
         localStorage.setItem("accessToken",payload.token)
     }

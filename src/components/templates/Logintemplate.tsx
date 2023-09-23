@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { LoginSchema, LoginSchemaType } from "schema";
 import { useAppDispatch } from "store";
 import { loginThunk } from "store/quanLyNguoiDung/thunk";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { showSuccess } from "../../main";
 
 export const Logintemplate = () => {
   const navigate = useNavigate();
@@ -20,10 +21,13 @@ export const Logintemplate = () => {
     resolver: zodResolver(LoginSchema),
   });
   const onSubmit: SubmitHandler<LoginSchemaType> = async (value) => {
+    console.log("value", value);
     dispatch(loginThunk(value))
       .unwrap()
       .then(() => {
-        toast.success("Đăng nhập thành công!");
+        // toast.success("Đăng nhập thành công!");
+        showSuccess("Đăng nhập thành công!");
+        navigate("/");
       });
   };
   return (
