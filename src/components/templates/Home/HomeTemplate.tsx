@@ -1,9 +1,20 @@
 import { Carousel } from "components/ui";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "store";
+import { getLocationPaginationThunk } from "store/quanLyViTri/thunk";
 import styled from "styled-components";
 
 export const HomeTemplate = () => {
+  const dispatch = useAppDispatch();
+  const { LocationPagination } = useSelector((state: RootState) => state.quanLyViTri)
+  useEffect(() => {
+    dispatch(getLocationPaginationThunk({ pageIndex: 1, pageSize: 8, keyword: null }))
+    document.title = "Nhà nghỉ dưỡng & Căn hộ cao cấp cho thuê - Airbnb"
+  }, [])
   return (
     <Home>
+      {/* Carousel */}
       <div className="airbnb_carousel">
         <div className="container">
           <div className="carousel_box">
@@ -22,12 +33,30 @@ export const HomeTemplate = () => {
           </div>
         </div>
       </div>
-      <div className="airbnb_location"></div>
-      <div className="airbnb_accom pt-[30px] pb-[70px]">
+      {/* Location */}
+      <div className="airbnb_location pt-40">
         <div className="section_container">
-          <p className="section_heading">
+          <h3 className="section_heading">
+            Khám phá những điểm đến gần đây
+          </h3>
+          <div className="location_box grid grid-cols-4 gap-y-15 pt-20">
+            {LocationPagination?.data.map(vitri => (
+              <div className="location_card">
+                <img className="card_img" src={vitri.hinhAnh} alt={vitri.tenViTri} />
+                <div className="card_content">
+                  <span className="card_title">{vitri.tinhThanh}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* Accommodation */}
+      <div className="airbnb_accom pt-40 pb-70">
+        <div className="section_container">
+          <h3 className="section_heading">
             Ở bất cứ đâu
-          </p>
+          </h3>
           <div className="grid grid-cols-4 justify-items-center gap-3 pt-20">
             <div className="accom_item">
               <img className="object-cover rounded-lg w-full h-full cursor-pointer" src="./images/accom_1.png" alt="accom_1" />
@@ -77,6 +106,24 @@ const Home = styled.div`
         font-size: 2rem;
         letter-spacing: -1px;
       }
+    }
+  }
+  .location_card {
+    display: flex;
+    .card_img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+    }
+    .card_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 16px;
+    }
+    .card_title {
+      font-size: .9rem;
+      font-weight: 500;
     }
   }
 `;

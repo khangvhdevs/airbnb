@@ -7,42 +7,42 @@ export const Footer = () => {
             <div className="grid grid-cols-4 pb-[30px]">
                 <div>
                     <h4 className="foot_heading">Giới thiệu</h4>
-                    <p className="foot_nav_item button_underline">Phương thức hoạt động của Airbnb</p>
-                    <p className="foot_nav_item button_underline">Trang tin tức</p>
-                    <p className="foot_nav_item button_underline">Nhà đầu tư</p>
-                    <p className="foot_nav_item button_underline">Airbnb Plus</p>
-                    <p className="foot_nav_item button_underline">Airbnb Luxe</p>
-                    <p className="foot_nav_item button_underline">HotelTonight</p>
-                    <p className="foot_nav_item button_underline">Airbnb for Work</p>
-                    <p className="foot_nav_item button_underline">Nhờ có Host, mọi điều đều có thể</p>
-                    <p className="foot_nav_item button_underline">Cơ hội nghề nghiệp</p>
-                    <p className="foot_nav_item button_underline">Thư của nhà sáng lập</p>
+                    <div className="foot_nav_item"><span className="button_underline">Phương thức hoạt động của Airbnb</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Trang tin tức</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Nhà đầu tư</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Airbnb Plus</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Airbnb Luxe</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">HotelTonight</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Airbnb for Work</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Nhờ có Host, mọi điều đều có thể</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Cơ hội nghề nghiệp</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Thư của nhà sáng lập</span></div>
                 </div>
                 <div>
                     <h4 className="foot_heading">Cộng đồng</h4>
-                    <p className="foot_nav_item button_underline">Sự đa dạng và Cảm giác thân thuộc</p>
-                    <p className="foot_nav_item button_underline">Tiện nghi phù hợp cho người khuyết tật</p>
-                    <p className="foot_nav_item button_underline">Đối tác liên kết Airbnb</p>
-                    <p className="foot_nav_item button_underline">Chỗ ở cho tuyến đầu</p>
-                    <p className="foot_nav_item button_underline">Lượt giới thiệu của khách</p>
-                    <p className="foot_nav_item button_underline">Airbnb.org</p>
+                    <div className="foot_nav_item"><span className="button_underline">Sự đa dạng và Cảm giác thân thuộc</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Tiện nghi phù hợp cho người khuyết tật</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Đối tác liên kết Airbnb</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Chỗ ở cho tuyến đầu</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Lượt giới thiệu của khách</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Airbnb.org</span></div>
                 </div>
                 <div>
                     <h4 className="foot_heading">đón tiếp khách</h4>
-                    <p className="foot_nav_item button_underline">Cho thuê nhà</p>
-                    <p className="foot_nav_item button_underline">Tổ chức Trải nghiệm trực tuyến</p>
-                    <p className="foot_nav_item button_underline">Tổ chức trải nghiệm</p>
-                    <p className="foot_nav_item button_underline">Đón tiếp khác có trách nhiệm</p>
-                    <p className="foot_nav_item button_underline">Trung tâm tài nguyên</p>
-                    <p className="foot_nav_item button_underline">Trung tâm cộng đồng</p>
+                    <div className="foot_nav_item"><span className="button_underline">Cho thuê nhà</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Tổ chức Trải nghiệm trực tuyến</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Tổ chức trải nghiệm</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Đón tiếp khác có trách nhiệm</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Trung tâm tài nguyên</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Trung tâm cộng đồng</span></div>
                 </div>
                 <div>
                     <h4 className="foot_heading">Hỗ trợ</h4>
-                    <p className="foot_nav_item button_underline">Biện pháp ứng phó với đại dịch COVID_19 của chúng tôi</p>
-                    <p className="foot_nav_item button_underline">Trung tâm trợ giúp</p>
-                    <p className="foot_nav_item button_underline">Các tùy chọn hủy</p>
-                    <p className="foot_nav_item button_underline">Hỗ trợ dân cư</p>
-                    <p className="foot_nav_item button_underline">Tin cậy và an toàn</p>
+                    <div className="foot_nav_item"><span className="button_underline">Biện pháp ứng phó với đại dịch COVID_19 của chúng tôi</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Trung tâm trợ giúp</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Các tùy chọn hủy</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Hỗ trợ dân cư</span></div>
+                    <div className="foot_nav_item"><span className="button_underline">Tin cậy và an toàn</span></div>
                 </div>
             </div>
             <div className="foot_copyright flex justify-between">
