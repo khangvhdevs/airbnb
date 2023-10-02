@@ -26,6 +26,7 @@ export default {
         900: 900,
       },
       spacing: {
+        1: "1px",
         2: "2px",
         4: "4px",
         6: "6px",
@@ -34,6 +35,7 @@ export default {
         10: "10px",
         15: "15px",
         20: "20px",
+        24: "24px",
         30: "30px",
         35: "35px",
         40: "40px",
@@ -42,6 +44,9 @@ export default {
         70: "70px",
         200: "200px",
       },
+      borderWidth: {
+        1: "1px",
+      }
     },
   },
   plugins: [],

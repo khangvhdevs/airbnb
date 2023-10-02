@@ -1,4 +1,4 @@
-export type PhanTrangType = {
+export type PhanTrangParams = {
     pageIndex: number
     pageSize: number
     keyword: string

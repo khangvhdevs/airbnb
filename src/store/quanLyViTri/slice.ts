@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { PhanTrangViTri } from "types/quanLyViTri"
-import { getLocationPaginationThunk } from "./thunk"
+import { PhanTrangViTri, ViTri } from "types"
+import { getLocationByIdThunk, getLocationPaginationThunk } from "./thunk"
 
 type quanLyViTriIntitialState = {
     LocationPagination?: PhanTrangViTri,
+    LocationById?: ViTri,
 }
 
 const initialState: quanLyViTriIntitialState = {
@@ -17,7 +18,9 @@ const quanLyViTriSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(getLocationPaginationThunk.fulfilled, (state, { payload }) => {
             state.LocationPagination = payload
-            console.log(payload);
+        })
+        builder.addCase(getLocationByIdThunk.fulfilled, (state, { payload }) => {
+            state.LocationById = payload
         })
     },
 })

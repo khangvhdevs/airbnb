@@ -7,5 +7,5 @@ const api = apiInstance({
 })
 
 export const quanLyNguoiDungServices = {
-    login: (payload: LoginSchemaType) => api.post<ApiResponse<Content<User>>>('/signin',payload),
+    login: (payload: LoginSchemaType) => api.post<ApiResponse<Content<User>>>('/signin', payload),
 }
