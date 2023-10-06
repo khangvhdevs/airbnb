@@ -1,5 +1,7 @@
 import { DatePicker } from "antd";
+import { PATH } from "constant";
 import React, { useState } from "react";
+import { NavigateFunction, generatePath, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ViTri } from "types/quanLyViTri";
 
@@ -99,6 +101,7 @@ interface SearchBarProps {
   LocationHeader: ViTri[];
   setShowDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   selectedOption: any;
+  navigate: NavigateFunction;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -108,19 +111,23 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleInput,
   setShowDropdown,
   selectedOption,
+  navigate,
 }) => {
+  const path = selectedOption
+    ? generatePath(PATH.roomslist, { maViTri: selectedOption?.id })
+    : generatePath(PATH.roomslist, { maViTri: 1 });
   return (
     <ActiveBar>
       <div className="nav-search-header2 flex border items-center rounded-full shadow-md h-[65px] w-[900px]">
         {tabsData.map((tab) => (
           <div
-            key={tab.id}
-            className={`search-tab  ${1 === tab.id ? "w-[40%]" : "w-25%"} ${
-              4 === tab.id ? "w-[30%]" : "w-25%"
-            } ${activeTab === tab.id ? "active" : ""}`}
-            onClick={() => handleTabClick(tab.id)}
+            key={tab?.id}
+            className={`search-tab  ${1 === tab?.id ? "w-[40%]" : "w-25%"} ${
+              4 === tab?.id ? "w-[30%]" : "w-25%"
+            } ${activeTab === tab?.id ? "active" : ""}`}
+            onClick={() => handleTabClick(tab?.id)}
           >
-            {tab.id === 1 ? (
+            {tab?.id === 1 ? (
               <div className="text-left search-item">
                 <div className="ml-[30px] py-[11px] flex">
                   <div className="px-[5px]">
@@ -148,8 +155,27 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   </div>
                 </div>
               </div>
+            ) : tab?.id === 4 ? (
+              <div className="search-id flex justify-between search-item py-[12px] px-[18px]">
+                <div className="search-id-left">
+                  <p className="text-[13px] font-medium px-[16px] mb-[5px] ">
+                    Khách
+                  </p>
+                  <p className="text-[15px]">Thêm khách</p>
+                </div>
+                <div
+                  className="ml-[10px] w-[100px] h-[40px] search-header2 mt-[5px] cursor-pointer"
+                  onClick={() => {
+                    navigate(path);
+                  }}
+                >
+                  <p className="bg-red-500 search text-white rounded-[20px] w-full h-full text-center flex items-center justify-center">
+                    Tìm kiếm
+                  </p>
+                </div>
+              </div>
             ) : (
-              tab.title
+              tab?.title
             )}
           </div>
         ))}
@@ -207,11 +233,11 @@ interface LocationHeaderProps {
   LocationHeader: ViTri[];
 }
 const Active: React.FC<LocationHeaderProps> = ({ LocationHeader }) => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<number>(1);
   const handleTabClick = (tabId: number) => {
     setActiveTab(tabId);
   };
-
   const [searchValueInput, setSearchValueInput] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -220,13 +246,10 @@ const Active: React.FC<LocationHeaderProps> = ({ LocationHeader }) => {
     const searchValueInput = ev.target.value;
     setSearchValueInput(searchValueInput);
 
-    // Filter options based on input value
     const filteredOptions = LocationHeader.filter((option: any) =>
       option.tenViTri.toLowerCase().includes(searchValueInput.toLowerCase())
     );
     setFilteredOptions(filteredOptions);
-
-    // Show dropdown if there are filtered options
     setShowDropdown(filteredOptions.length > 0);
   };
   const handleOptionClick = (option) => {
@@ -246,6 +269,7 @@ const Active: React.FC<LocationHeaderProps> = ({ LocationHeader }) => {
         handleInput={handleInput}
         setShowDropdown={setShowDropdown}
         selectedOption={selectedOption}
+        navigate={navigate}
       />
       <SearchContent
         activeTab={activeTab}

@@ -211,6 +211,9 @@ const HeaderX = styled.div`
   will-change: height;
   background: white;
   transition: height 3000ms var(--itr-yy-z);
+  box-shadow: 0px 1px 7px 0px rgba(224, 211, 211, 0.75);
+  -webkit-box-shadow: 0px 1px 7px 0px rgba(224, 211, 211, 0.75);
+  -moz-box-shadow: 0px 1px 7px 0px rgba(224, 211, 211, 0.75);
   .nav-logo {
     height: 2rem;
   }

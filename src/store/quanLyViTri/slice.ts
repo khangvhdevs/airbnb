@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { PhanTrangViTri, ViTri } from "types/quanLyViTri"
-import { getLocationAtHeaderThunk, getLocationPaginationThunk } from "./thunk"
+import { getLocationAtHeaderThunk, getLocationPaginationThunk, getLocationByIdThunk } from "./thunk"
+import { PhanTrangViTri, ViTri } from "types"
+
 
 type quanLyViTriIntitialState = {
     LocationPagination?: PhanTrangViTri,
+    LocationById?: ViTri,
     LocationHeader?: ViTri[]
 }
 
@@ -24,7 +26,9 @@ const quanLyViTriSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(getLocationPaginationThunk.fulfilled, (state, { payload }) => {
             state.LocationPagination = payload
-            console.log(payload);
+        })
+        builder.addCase(getLocationByIdThunk.fulfilled, (state, { payload }) => {
+            state.LocationById = payload
         })
         .addCase(getLocationAtHeaderThunk.fulfilled, (state, { payload })=>{
             console.log("payloadHeader", payload);
