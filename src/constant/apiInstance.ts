@@ -9,6 +9,7 @@ export const apiInstance = (config?: CreateAxiosDefaults) => {
             headers: {
                 TokenCybersoft: TOKEN_CYBERSOFT,
                 // Authorization: 'Bearer' + ' ' + localStorage.getItem('accessToken'),
+                token: localStorage.getItem('token'),
             } as unknown as AxiosRequestHeaders,
         }
     })

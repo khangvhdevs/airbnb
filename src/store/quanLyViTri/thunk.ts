@@ -12,3 +12,13 @@ export const getLocationPaginationThunk = createAsyncThunk(
         }
     }
 )
+export const getLocationAtHeaderThunk = createAsyncThunk(
+    'quanLyViTri/getLocationAtHeaderThunk', async ( _,{rejectWithValue} ) => {
+        try {
+            const data = await quanLyViTriServices.getLocationAtHeader()
+            return data.data.content
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)

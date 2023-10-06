@@ -7,11 +7,16 @@ import styled from "styled-components";
 
 export const HomeTemplate = () => {
   const dispatch = useAppDispatch();
-  const { LocationPagination } = useSelector((state: RootState) => state.quanLyViTri)
+  const { LocationPagination } = useSelector(
+    (state: RootState) => state.quanLyViTri
+  );
+
   useEffect(() => {
-    dispatch(getLocationPaginationThunk({ pageIndex: 1, pageSize: 8, keyword: null }))
-    document.title = "Nhà nghỉ dưỡng & Căn hộ cao cấp cho thuê - Airbnb"
-  }, [])
+    dispatch(
+      getLocationPaginationThunk({ pageIndex: 1, pageSize: 8, keyword: null })
+    );
+    document.title = "Nhà nghỉ dưỡng & Căn hộ cao cấp cho thuê - Airbnb";
+  }, []);
   return (
     <Home>
       {/* Carousel */}
@@ -36,13 +41,15 @@ export const HomeTemplate = () => {
       {/* Location */}
       <div className="airbnb_location pt-40">
         <div className="section_container">
-          <h3 className="section_heading">
-            Khám phá những điểm đến gần đây
-          </h3>
+          <h3 className="section_heading">Khám phá những điểm đến gần đây</h3>
           <div className="location_box grid grid-cols-4 gap-y-15 pt-20">
-            {LocationPagination?.data.map(vitri => (
-              <div className="location_card">
-                <img className="card_img" src={vitri.hinhAnh} alt={vitri.tenViTri} />
+            {LocationPagination?.data.map((vitri, key) => (
+              <div className="location_card" key={key}>
+                <img
+                  className="card_img"
+                  src={vitri.hinhAnh}
+                  alt={vitri.tenViTri}
+                />
                 <div className="card_content">
                   <span className="card_title">{vitri.tinhThanh}</span>
                 </div>
@@ -54,24 +61,38 @@ export const HomeTemplate = () => {
       {/* Accommodation */}
       <div className="airbnb_accom pt-40 pb-70">
         <div className="section_container">
-          <h3 className="section_heading">
-            Ở bất cứ đâu
-          </h3>
+          <h3 className="section_heading">Ở bất cứ đâu</h3>
           <div className="grid grid-cols-4 justify-items-center gap-3 pt-20">
             <div className="accom_item">
-              <img className="object-cover rounded-lg w-full h-full cursor-pointer" src="./images/accom_1.png" alt="accom_1" />
+              <img
+                className="object-cover rounded-lg w-full h-full cursor-pointer"
+                src="./images/accom_1.png"
+                alt="accom_1"
+              />
               <p className="pt-2 font-600">Toàn bộ nhà</p>
             </div>
             <div className="accom_item">
-              <img className="object-cover rounded-lg w-full h-full cursor-pointer" src="./images/accom_2.png" alt="accom_2" />
+              <img
+                className="object-cover rounded-lg w-full h-full cursor-pointer"
+                src="./images/accom_2.png"
+                alt="accom_2"
+              />
               <p className="pt-2 font-600">Chỗ ở độc đáo</p>
             </div>
             <div className="accom_item">
-              <img className="object-cover rounded-lg w-full h-full cursor-pointer" src="./images/accom_3.png" alt="accom_3" />
+              <img
+                className="object-cover rounded-lg w-full h-full cursor-pointer"
+                src="./images/accom_3.png"
+                alt="accom_3"
+              />
               <p className="pt-2 font-600">Trang trại và thiên nhiên</p>
             </div>
             <div className="accom_item">
-              <img className="object-cover rounded-lg w-full h-full cursor-pointer" src="./images/accom_4.jpg" alt="accom_4" />
+              <img
+                className="object-cover rounded-lg w-full h-full cursor-pointer"
+                src="./images/accom_4.jpg"
+                alt="accom_4"
+              />
               <p className="pt-2 font-600">Cho phép mang theo thú cưng</p>
             </div>
           </div>
@@ -122,7 +143,7 @@ const Home = styled.div`
       margin-left: 16px;
     }
     .card_title {
-      font-size: .9rem;
+      font-size: 0.9rem;
       font-weight: 500;
     }
   }

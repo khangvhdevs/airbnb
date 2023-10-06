@@ -1,13 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { PhanTrangViTri } from "types/quanLyViTri"
-import { getLocationPaginationThunk } from "./thunk"
+import { PhanTrangViTri, ViTri } from "types/quanLyViTri"
+import { getLocationAtHeaderThunk, getLocationPaginationThunk } from "./thunk"
 
 type quanLyViTriIntitialState = {
     LocationPagination?: PhanTrangViTri,
+    LocationHeader?: ViTri[]
 }
 
 const initialState: quanLyViTriIntitialState = {
-
+    // LocationHeader: [{
+    //     id: 0,
+    //     tenViTri: "" ,
+    //     tinhThanh: "",
+    //     quocGia: "",
+    //     hinhAnh: "",
+    // }]
 }
 
 const quanLyViTriSlice = createSlice({
@@ -18,6 +25,10 @@ const quanLyViTriSlice = createSlice({
         builder.addCase(getLocationPaginationThunk.fulfilled, (state, { payload }) => {
             state.LocationPagination = payload
             console.log(payload);
+        })
+        .addCase(getLocationAtHeaderThunk.fulfilled, (state, { payload })=>{
+            console.log("payloadHeader", payload);
+            state.LocationHeader = payload
         })
     },
 })
