@@ -41,7 +41,7 @@ export const HomeTemplate = () => {
           </h3>
           <div className="location_box grid grid-cols-4 gap-y-15 pt-20">
             {LocationPagination?.data.map(vitri => (
-              <div className="location_card">
+              <div key={vitri.id} className="location_card">
                 <img className="card_img" src={vitri.hinhAnh} alt={vitri.tenViTri} />
                 <div className="card_content">
                   <span className="card_title">{vitri.tinhThanh}</span>

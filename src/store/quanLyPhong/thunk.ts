@@ -12,3 +12,13 @@ export const getRoomsByLocationThunk = createAsyncThunk(
         }
     }
 )
+export const getRoomByIdThunk = createAsyncThunk(
+    'quanLyPhong/getRoomByIdThunk', async (id: number, { rejectWithValue }) => {
+        try {
+            const data = await quanLyPhongServices.getRoomsById(id)
+            return data.data.content
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)

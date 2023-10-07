@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getRoomsByLocationThunk } from "./thunk"
+import { getRoomByIdThunk, getRoomsByLocationThunk } from "./thunk"
 import { RoomsByLocation } from "types"
 
 type quanLyPhongInitialState = {
     RoomsByLocationList?: RoomsByLocation[]
-    isFetchingRoomsByLocationList: boolean
+    Room?: RoomsByLocation
+    isFetchingRoom: boolean
 }
 
 const initialState: quanLyPhongInitialState = {
     RoomsByLocationList: [],
-    isFetchingRoomsByLocationList: false
+    isFetchingRoom: false
 }
 
 const quanLyPhongSlice = createSlice({
@@ -20,13 +21,16 @@ const quanLyPhongSlice = createSlice({
         builder
             .addCase(getRoomsByLocationThunk.fulfilled, (state, { payload }) => {
                 state.RoomsByLocationList = payload
-                state.isFetchingRoomsByLocationList = false
+                state.isFetchingRoom = false
             })
             .addCase(getRoomsByLocationThunk.pending, (state) => {
-                state.isFetchingRoomsByLocationList = true
+                state.isFetchingRoom = true
             })
             .addCase(getRoomsByLocationThunk.rejected, (state) => {
-                state.isFetchingRoomsByLocationList = false
+                state.isFetchingRoom = false
+            })
+            .addCase(getRoomByIdThunk.fulfilled, (state, { payload }) => {
+                state.Room = payload
             })
     },
 })
