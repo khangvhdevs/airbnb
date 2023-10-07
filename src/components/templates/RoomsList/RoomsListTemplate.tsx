@@ -1,17 +1,20 @@
 import { Card, Carousel, Image, Skeleton } from "components/ui";
+import { PATH } from "constant";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
 import { RootState, useAppDispatch } from "store";
 import { getRoomsByLocationThunk } from "store/quanLyPhong/thunk";
 import { getLocationByIdThunk } from "store/quanLyViTri/thunk";
 import styled from "styled-components";
+import { } from 'querystring'
 
 export const RoomsListTemplate = () => {
+    const navigate = useNavigate()
     const params = useParams();
     const { maViTri } = params;
     const dispatch = useAppDispatch();
-    const { RoomsByLocationList, isFetchingRoomsByLocationList } = useSelector(
+    const { RoomsByLocationList, isFetchingRoom } = useSelector(
         (state: RootState) => state.quanLyPhong
     );
     const { LocationById } = useSelector(
@@ -26,7 +29,7 @@ export const RoomsListTemplate = () => {
     document.title = `Airbnb | ${LocationById?.tinhThanh}`;
 
 
-    if (isFetchingRoomsByLocationList) {
+    if (isFetchingRoom) {
         return (
             <div className="grid grid-cols-5 ml-20">
                 <div className="col-span-3 mr-7 pb-7 pt-12">
@@ -83,82 +86,95 @@ export const RoomsListTemplate = () => {
                         <p className="room_qty">Hơn {accomQty} chỗ ở</p>
                         <h1 className="room_heading">Chỗ ở tại khu vực bản đồ đã chọn</h1>
                     </RoomHeader>
-                    {RoomsByLocationList?.map((phong) => (
-                        <RoomDetails key={phong.id}>
-                            <div className="grid grid-cols-8 py-20 border-t-1">
-                                <div className="col-span-3">
-                                    <RoomsCarousel dotActiveWidth={null}>
-                                        <div className="room_item image-box">
-                                            <img
-                                                className="image_crop item_1"
-                                                src={phong.hinhAnh}
-                                                alt={phong.id.toLocaleString() + "_1"}
-                                            />
+                    {RoomsByLocationList?.map((phong) => {
+                        const path = generatePath(PATH.roomdetails, { id: phong.id })
+                        return (
+                            <RoomDetails
+                                key={phong.id}
+                            >
+                                <div className="grid grid-cols-8 py-20 border-t-1">
+                                    <div className="col-span-3">
+                                        <RoomsCarousel dotActiveWidth={null}>
+                                            <div className="room_item image-box">
+                                                <img
+                                                    className="image_crop item_1"
+                                                    src={phong.hinhAnh}
+                                                    alt={phong.id.toLocaleString() + "_1"}
+                                                />
+                                            </div>
+                                            <div className="image-box">
+                                                <img
+                                                    className="image_crop item_2"
+                                                    src={phong.hinhAnh}
+                                                    alt={phong.id.toLocaleString() + "_2"}
+                                                />
+                                            </div>
+                                        </RoomsCarousel>
+                                    </div>
+                                    <div
+                                        className="accom col-span-5 relative cursor-pointer"
+                                        onClick={() => {
+                                            navigate({
+                                                pathname: path,
+                                                search: `?maViTri=${phong.maViTri}`
+                                            })
+                                        }}
+                                    >
+                                        <p className="accom_address">
+                                            {LocationById?.tenViTri + ", " + LocationById?.tinhThanh}
+                                        </p>
+                                        <h4 className="accom_name">{phong.tenPhong}</h4>
+                                        <div className="accom_desc">
+                                            <div className="accom_data flex">
+                                                <span>{phong.khach} khách </span>
+                                                <div className="dot">.</div>
+                                                <span>{phong.giuong} giường</span>
+                                                <div className="dot">.</div>
+                                                <span>{phong.phongNgu} phòng ngủ</span>
+                                                <div className="dot">.</div>
+                                                <span>{phong.phongTam} phòng tắm</span>
+                                            </div>
+                                            <div className="accom_amenities flex">
+                                                {phong.wifi ? (
+                                                    <>
+                                                        <span>Wifi</span>
+                                                        <div className="dot">.</div>
+                                                    </>
+                                                ) : null}
+                                                {phong.doXe ? (
+                                                    <>
+                                                        <span>Bãi xe</span>
+                                                        <div className="dot">.</div>
+                                                    </>
+                                                ) : null}
+                                                {phong.bep ? (
+                                                    <>
+                                                        <span>Bếp</span>
+                                                        <div className="dot">.</div>
+                                                    </>
+                                                ) : null}
+                                                {phong.dieuHoa ? (
+                                                    <>
+                                                        <span>Điều hòa nhiệt độ</span>
+                                                        <div className="dot">.</div>
+                                                    </>
+                                                ) : null}
+                                                {phong.mayGiat ? (
+                                                    <>
+                                                        <span>Máy giặt</span>
+                                                    </>
+                                                ) : null}
+                                            </div>
                                         </div>
-                                        <div className="image-box">
-                                            <img
-                                                className="image_crop item_2"
-                                                src={phong.hinhAnh}
-                                                alt={phong.id.toLocaleString() + "_2"}
-                                            />
-                                        </div>
-                                    </RoomsCarousel>
-                                </div>
-                                <div className="accom col-span-5 relative">
-                                    <p className="accom_address">
-                                        {LocationById?.tenViTri + ", " + LocationById?.tinhThanh}
-                                    </p>
-                                    <h4 className="accom_name">{phong.tenPhong}</h4>
-                                    <div className="accom_desc">
-                                        <div className="accom_data flex">
-                                            <span>{phong.khach} khách </span>
-                                            <div className="dot">.</div>
-                                            <span>{phong.giuong} giường</span>
-                                            <div className="dot">.</div>
-                                            <span>{phong.phongNgu} phòng ngủ</span>
-                                            <div className="dot">.</div>
-                                            <span>{phong.phongTam} phòng tắm</span>
-                                        </div>
-                                        <div className="accom_amenities flex">
-                                            {phong.wifi ? (
-                                                <>
-                                                    <span>Wifi</span>
-                                                    <div className="dot">.</div>
-                                                </>
-                                            ) : null}
-                                            {phong.doXe ? (
-                                                <>
-                                                    <span>Bãi xe</span>
-                                                    <div className="dot">.</div>
-                                                </>
-                                            ) : null}
-                                            {phong.bep ? (
-                                                <>
-                                                    <span>Bếp</span>
-                                                    <div className="dot">.</div>
-                                                </>
-                                            ) : null}
-                                            {phong.dieuHoa ? (
-                                                <>
-                                                    <span>Điều hòa nhiệt độ</span>
-                                                    <div className="dot">.</div>
-                                                </>
-                                            ) : null}
-                                            {phong.mayGiat ? (
-                                                <>
-                                                    <span>Máy giặt</span>
-                                                </>
-                                            ) : null}
+                                        <div className="accom_cost">
+                                            <span className="cost_number">{"$" + phong.giaTien}</span>
+                                            <span> / đêm</span>
                                         </div>
                                     </div>
-                                    <div className="accom_cost">
-                                        <span className="cost_number">{"$" + phong.giaTien}</span>
-                                        <span> / đêm</span>
-                                    </div>
                                 </div>
-                            </div>
-                        </RoomDetails>
-                    ))}
+                            </RoomDetails>
+                        )
+                    })}
                 </div>
                 <div className="col-span-2">
                     <LocationDetails>

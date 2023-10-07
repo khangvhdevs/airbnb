@@ -26,7 +26,7 @@ interface ParentProps {
 export const Header: React.FC<ParentProps> = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { userLogin, getUserID } = useSelector((state: RootState) => {
+  const { getUserID } = useSelector((state: RootState) => {
     return state.quanLyNguoiDung;
   });
   console.log("getUserID", getUserID);
