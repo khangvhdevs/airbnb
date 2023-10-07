@@ -41,15 +41,36 @@ export const Header: React.FC<ParentProps> = () => {
   const [expanded, setExpanded] = useState(false);
   const [headerHeight, setHeaderHeight] = useState("80px");
   const handleClick = () => {
-    console.log("expanded1", expanded);
     setExpanded(!expanded);
     setHeaderHeight(expanded ? "80px" : "180px");
   };
-
+  //Xử lý scroll header
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        const isScrolled = window.scrollY > 0;
+        setScrolled(isScrolled);
+      }
+      handleClick();
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
+  const getViTri = localStorage.getItem("tenViTri");
   return (
     <HeaderX style={{ height: headerHeight }}>
       <div className="grid grid-cols-3 items-center ">
-        <img src="/images/logo-header.png" className="nav-logo" />
+        <img
+          src="/images/logo-header.png"
+          className="nav-logo"
+          onClick={() => {
+            navigate("/");
+            showSuccess("Về trang chủ");
+          }}
+        />
         {expanded ? (
           <div className="h-12 header2">
             <TabX>
@@ -96,10 +117,10 @@ export const Header: React.FC<ParentProps> = () => {
             onClick={handleClick}
           >
             <button className="border-r-2 text-sm font-medium px-[16px]">
-              Muôn nơi
+              {getViTri ? getViTri : "Muôn nơi"}
             </button>
             <button className="border-r-2 text-sm  font-medium px-[16px]">
-              Mọi lúc
+              {getViTri ? "Đặt lịch" : "Mọi lúc"}
             </button>
             <button className="add-guest text-sm text-gray-500 font-medium px-[16px]">
               Thêm khách

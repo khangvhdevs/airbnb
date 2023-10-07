@@ -1,5 +1,6 @@
 import { DatePicker } from "antd";
 import { PATH } from "constant";
+import { showError, showSuccess } from "../../main";
 import React, { useState } from "react";
 import { NavigateFunction, generatePath, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -164,9 +165,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   <p className="text-[15px]">Thêm khách</p>
                 </div>
                 <div
-                  className="ml-[10px] w-[100px] h-[40px] search-header2 mt-[5px] cursor-pointer"
+                  className="ml-[10px] w-[100px] h-[40px] search-id-right mt-[5px] cursor-pointer"
                   onClick={() => {
-                    navigate(path);
+                    if (selectedOption?.tenViTri) {
+                      navigate(path);
+                      localStorage.setItem("tenViTri", selectedOption.tenViTri);
+                      showSuccess("Đã tới danh sách phòng");
+                    } else {
+                      showError("Bạn chưa chọn địa điểm muốn đến á!?");
+                    }
                   }}
                 >
                   <p className="bg-red-500 search text-white rounded-[20px] w-full h-full text-center flex items-center justify-center">
@@ -287,6 +294,13 @@ const ActiveBar = styled.div`
   .nav-search-header2 {
     transform: translateX(-190px);
     /* z-index: 20; */
+    .search-id {
+      .search-id-right {
+        :hover {
+          border: solid 3px pink;
+        }
+      }
+    }
     .search-header2 {
     }
     .search-item {

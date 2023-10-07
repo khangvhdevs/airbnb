@@ -27,3 +27,11 @@ export let showSuccess = (title = "Thành Công") => {
     timer: 1500,
   });
 };
+export let showError = (title = "Có lỗi gì đó?!") => {
+  Swal.fire({
+    icon: "error",
+    title: "Ui da...",
+    text: title,
+    footer: '<a href="">Tìm hiểu thêm về các địa điểm nổi tiếng!</a>',
+  });
+};
