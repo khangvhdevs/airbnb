@@ -8,31 +8,31 @@ type QuanLyNguoiDungInitialState = {
   getUserID?: & User;
 };
 const initialState: QuanLyNguoiDungInitialState = {
-  userLogin: {
-    user: {
-      id: 0,
-      name: "",
-      email: "",
-      password: "",
-      phone: "",
-      birthday: "",
-      avatar: "",
-      gender: true,
-      role: "",
-    },
-    token: "",
-  },
-  getUserID: {
-    id: 0,
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    birthday: "",
-    avatar: "",
-    gender: true,
-    role: "",
-  },
+  // userLogin: {
+  //   user: {
+  //     id: 0,
+  //     name: "",
+  //     email: "",
+  //     password: "",
+  //     phone: "",
+  //     birthday: "",
+  //     avatar: "",
+  //     gender: true,
+  //     role: "",
+  //   },
+  //   token: "",
+  // },
+  // getUserID: {
+  //   id: 0,
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  //   phone: "",
+  //   birthday: "",
+  //   avatar: "",
+  //   gender: true,
+  //   role: "",
+  // },
   // accessToken: localStorage.getItem("accessToken")
 };
 
@@ -42,7 +42,9 @@ const quanLyNguoiDungSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.userLogin = undefined;
+      state.getUserID = undefined;
       localStorage.removeItem("idUser")
+      localStorage.removeItem("tenViTri")
     },
   },
   extraReducers: (builder) => {

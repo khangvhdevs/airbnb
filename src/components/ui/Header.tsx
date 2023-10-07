@@ -29,6 +29,8 @@ export const Header: React.FC<ParentProps> = () => {
   const { userLogin, getUserID } = useSelector((state: RootState) => {
     return state.quanLyNguoiDung;
   });
+  console.log("getUserID", getUserID);
+
   const { LocationHeader } = useSelector(
     (state: RootState) => state.quanLyViTri
   );
@@ -133,7 +135,7 @@ export const Header: React.FC<ParentProps> = () => {
           <div className="text-Airbnb">
             <GlobalOutlined />
           </div>
-          {!userLogin?.user ? (
+          {!getUserID ? (
             <Popover
               trigger="click"
               content={
@@ -201,7 +203,7 @@ export const Header: React.FC<ParentProps> = () => {
             >
               <div className="nav-user flex justify-center items-center gap-[12px] rounded-full border h-[40px] w-[80px] py-[20px] pr-[24px] pl-[28px]">
                 <BarsOutlined />
-                {!getUserID.avatar ? (
+                {!getUserID?.avatar ? (
                   <div className="bg-green-300 text-white rounded-full text-center w-7 h-7">
                     <UserOutlined className="w-full h-full" />
                   </div>
