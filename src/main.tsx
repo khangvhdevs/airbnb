@@ -10,7 +10,7 @@ import { StyleProvider } from "@ant-design/cssinjs";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <Provider store={store}>
-      <StyleProvider>
+      <StyleProvider hashPriority='high'>
         <ToastContainer />
         <App />
       </StyleProvider>

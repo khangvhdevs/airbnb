@@ -22,6 +22,7 @@
     "@types/styled-components": "^5.1.27",
     "antd": "^5.9.1",
     "axios": "^1.5.0",
+    "date-fns": "^2.30.0",
     "postcss-minify-font-values": "^6.0.0",
     "qs": "^6.11.2",
     "react": "^18.2.0",

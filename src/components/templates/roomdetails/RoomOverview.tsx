@@ -17,7 +17,11 @@ export const RoomOverview = ({ maViTri }) => {
     const { LocationById: location } = useSelector(
         (state: RootState) => state.quanLyViTri
     );
+    const { FeedbackSum: fbSum, RateAverage: rateAverage } = useSelector(
+        (state: RootState) => state.quanLyBinhLuan
+    );
     const locationPath = generatePath(PATH.roomslist, { maViTri: maViTri });
+    document.title = `${room?.tenPhong}`
     return (
         <RoomOverviewX>
             <div className="pt-[1rem] border-t-1">
@@ -25,8 +29,8 @@ export const RoomOverview = ({ maViTri }) => {
                 <div className="flex justify-between pt-6  text-14">
                     <div className="flex">
                         <StarFilled className="overview_icon mr-4" />
-                        <span className="font-500 mr-4">4,83</span>
-                        <span className="nav_link">(18 đánh giá)</span>
+                        <span className="font-500 mr-4">{rateAverage}</span>
+                        <span className="nav_link">({fbSum} đánh giá)</span>
                         <div className="dot">.</div>
                         <FontAwesomeIcon
                             icon={faMedal}

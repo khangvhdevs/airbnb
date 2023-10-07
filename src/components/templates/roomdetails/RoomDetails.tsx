@@ -9,6 +9,7 @@ import styled from "styled-components";
 
 export const RoomDetails = () => {
     const { Room: room } = useSelector((state: RootState) => state.quanLyPhong);
+    const { RateAverage: rateAverage, FeedbackSum: feedbackSum } = useSelector((state: RootState) => state.quanLyBinhLuan);
     return (
         <RoomDetailsX>
             <div className="grid grid-cols-3 gap-16">
@@ -59,7 +60,7 @@ export const RoomDetails = () => {
                             <div>
                                 <CalendarOutlined className="text-2xl inline-block" />
                             </div>
-                            <div>
+                            <div className="flex items-center">
                                 <h4 className="item_heading">Miễn phí hủy trong 48 giờ</h4>
                             </div>
                         </div>
@@ -141,11 +142,11 @@ export const RoomDetails = () => {
                             title={
                                 <>
                                     <div className="flex justify-between">
-                                        <div><span>{room.giaTien}</span> / đêm</div>
+                                        <div><span>${room?.giaTien}</span> / đêm</div>
                                         <div className="flex">
                                             <StarOutlined />
-                                            <span>4.83</span>
-                                            <span>(18 đánh giá)</span>
+                                            <span>{rateAverage}</span>
+                                            <span>({feedbackSum} đánh giá)</span>
                                         </div>
                                     </div>
                                 </>

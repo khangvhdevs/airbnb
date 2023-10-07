@@ -5,6 +5,8 @@ import { getRoomByIdThunk } from "store/quanLyPhong/thunk"
 import { RoomOverview } from "./RoomOverview"
 import { getLocationByIdThunk } from "store/quanLyViTri/thunk"
 import RoomDetails from "./RoomDetails"
+import RoomFeedback from "./RoomFeedback"
+import { getCommentsByRoomIdThunk } from "store/quanLyBinhLuan/thunk"
 
 export const RoomDetailsTemplate = () => {
     const params = useParams()
@@ -16,11 +18,13 @@ export const RoomDetailsTemplate = () => {
     useEffect(() => {
         dispatch(getRoomByIdThunk(Number(id))).unwrap()
         dispatch(getLocationByIdThunk(Number(maViTri))).unwrap()
-    }, [id])
+        dispatch(getCommentsByRoomIdThunk(Number(id))).unwrap()
+    }, [id, maViTri])
     return (
         <div className="section_container">
             <RoomOverview maViTri={maViTri} />
             <RoomDetails />
+            <RoomFeedback />
         </div>
     )
 }
