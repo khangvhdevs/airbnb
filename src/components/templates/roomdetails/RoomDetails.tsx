@@ -318,7 +318,7 @@ export const RoomDetails = ({ maPhong, maNguoiDung }) => {
                                 <div className="my-[24px] font-400 text-16">
                                     <div className="flex justify-between">
                                         <span className="underline">${room?.giaTien} x {differ} đêm</span>
-                                        <span>${total}</span>
+                                        <span>${total ? total : 0}</span>
                                     </div>
                                 </div>
                             </CardHeading>
@@ -326,7 +326,7 @@ export const RoomDetails = ({ maPhong, maNguoiDung }) => {
                     >
                         <div className="flex justify-between font-500 text-16">
                             <span>Tổng</span>
-                            <span>${total}</span>
+                            <span>${total ? total : 0}</span>
                         </div>
                     </Card>
                 </div>
