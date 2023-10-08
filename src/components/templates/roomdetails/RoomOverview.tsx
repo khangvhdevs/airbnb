@@ -24,7 +24,7 @@ export const RoomOverview = ({ maViTri }) => {
   document.title = `${room?.tenPhong}`;
   return (
     <RoomOverviewX>
-      <div className="pt-[1rem] border-t-1">
+      <div className="pt-[1.8rem] border-t-1">
         <h1 className="text-20 font-500">{room?.tenPhong}</h1>
         <div className="flex justify-between pt-6  text-14">
           <div className="flex">

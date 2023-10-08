@@ -19,12 +19,13 @@ export const RoomDetailsTemplate = () => {
     dispatch(getRoomByIdThunk(Number(id))).unwrap();
     dispatch(getLocationByIdThunk(Number(maViTri))).unwrap();
     dispatch(getCommentsByRoomIdThunk(Number(id))).unwrap();
-  }, [id, maViTri]);
+  }, [id, maViTri, dispatch]);
+  const idUser = localStorage.getItem("idUser").toString()
   return (
     <div className="section_container">
-      // <RoomOverview maViTri={maViTri} />
-      // <RoomDetails />
-      // <RoomFeedback />
+      <RoomOverview maViTri={maViTri} />
+      <RoomDetails maPhong={id} maNguoiDung={idUser} />
+      <RoomFeedback maPhong={id} />
     </div>
   );
 };

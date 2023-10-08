@@ -1,154 +1,237 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Avatar, Button, Modal, Progress } from "components/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Avatar, Button, Modal, Progress, Rate } from "components/ui";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { CommentSchema, CommentSchemaType } from "schema/CommentSchema";
 import { RootState } from "store";
 import styled from "styled-components";
 import { convertCommentDate } from "utils/convertCommentDate";
+import { quanLyBinhLuanServices } from "services";
+import { toast } from "react-toastify"
 
-export const RoomFeedback = () => {
-  const {
-    CommentsByRoomIdList: comments,
-    RateAverage: rateAverage,
-    FeedbackSum: feedbackSum,
-  } = useSelector((state: RootState) => state.quanLyBinhLuan);
-  const [open, setOpen] = useState(false);
-  const [feedback, setFeedback] = useState(false);
-  return (
-    <>
-      <RoomFeedbackX>
-        <RateHeader>
-          <div>
-            <FontAwesomeIcon icon={faStar} />
-          </div>
-          <div>
-            {rateAverage} · {feedbackSum} đánh giá
-          </div>
-        </RateHeader>
-        <div className="grid grid-cols-2">
-          {comments?.map((comment, index) => {
-            if (index < 4) {
-              return (
-                <CommentBox key={comment.id}>
-                  <div className="comment_header">
-                    <div className="cmt_avatar">
-                      <Avatar src={comment.avatar} />
+export const RoomFeedback = ({ maPhong }) => {
+    let phongId = parseInt(maPhong)
+    const {
+        CommentsByRoomIdList: comments,
+        RateAverage: rateAverage,
+        FeedbackSum: feedbackSum,
+    } = useSelector((state: RootState) => state.quanLyBinhLuan);
+    const { getUserID: user } = useSelector((state: RootState) => state.quanLyNguoiDung)
+    const [open, setOpen] = useState(false);
+    const [openFeedback, setOpenFeedback] = useState(false);
+
+    const {
+        handleSubmit,
+        register,
+        setValue,
+        formState: { errors },
+    } = useForm<CommentSchemaType>({
+        mode: "onChange",
+        resolver: zodResolver(CommentSchema)
+    })
+
+    const objectDate = new Date()
+    let date = objectDate.toUTCString();
+
+    const onSubmit: SubmitHandler<CommentSchemaType> = async (value) => {
+        try {
+            await quanLyBinhLuanServices.postComment(value);
+            setOpenFeedback(false);
+            console.log("value", value);
+        } catch (err) {
+            toast.error(err?.response?.data?.content);
+            console.log(err);
+        }
+    };
+    return (
+        <>
+            <RoomFeedbackX>
+                <RateHeader>
+                    <div>
+                        <FontAwesomeIcon icon={faStar} />
                     </div>
-                    <div className="cmt_user">
-                      <span className="cmt_username">
-                        {comment.tenNguoiBinhLuan}
-                      </span>
-                      <span className="cmt_date">
-                        {convertCommentDate(comment.ngayBinhLuan)}
-                      </span>
+                    <div>
+                        {rateAverage} · {feedbackSum} đánh giá
                     </div>
-                  </div>
-                  <div className="comment_content">
-                    <p>{comment.noiDung}</p>
-                  </div>
-                </CommentBox>
-              );
-            }
-          })}
-        </div>
-        <div className="flex items-start gap-10">
-          {comments.length > 4 ? (
-            <Button
-              style={{
-                color: "black",
-              }}
-              size="large"
-              colorBorder="#000"
-              colorPrimaryBgHover="gray"
-              textHoverBg="gray"
-              onClick={() => setOpen(true)}
-              primaryShadow="rgba(0, 0, 0, 0.88)"
+                </RateHeader>
+                <div className="grid grid-cols-2">
+                    {comments?.map((comment, index) => {
+                        if (index < 4) {
+                            return (
+                                <CommentBox key={comment.id}>
+                                    <div className="comment_header">
+                                        <div className="cmt_avatar">
+                                            <Avatar src={comment.avatar} />
+                                        </div>
+                                        <div className="cmt_user">
+                                            <span className="cmt_username">
+                                                {comment.tenNguoiBinhLuan}
+                                            </span>
+                                            <span className="cmt_date">
+                                                {convertCommentDate(comment.ngayBinhLuan)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="comment_content">
+                                        <p>{comment.noiDung}</p>
+                                    </div>
+                                </CommentBox>
+                            );
+                        }
+                    })}
+                </div>
+                <div className="flex gap-3 pb-[2rem]">
+                    {comments.length > 4 ? (
+                        <Button
+                            style={{
+                                color: "black",
+                            }}
+                            size="large"
+                            colorBorder="#000"
+                            colorPrimaryBgHover="gray"
+                            textHoverBg="gray"
+                            onClick={() => setOpen(true)}
+                            primaryShadow="rgba(0, 0, 0, 0.88)"
+                        >
+                            Hiển thị tất cả {comments.length} đánh giá
+                        </Button>
+                    ) : null}
+                    <Button
+                        size="large"
+                        onClick={() => setOpenFeedback(true)}
+                        type="primary"
+                        danger
+                    >
+                        Đánh giá
+                    </Button>
+                </div>
+            </RoomFeedbackX>
+            <FeedbackModal
+                open={openFeedback}
+                onCancel={() => setOpenFeedback(false)}
+                cancelButtonProps={{ style: { display: "none" } }}
+                okButtonProps={{ style: { display: "none" } }}
+                paddingContentHorizontal={0}
             >
-              Hiển thị tất cả {comments.length} đánh giá
-            </Button>
-          ) : null}
-          <Button
-            size="large"
-            type="primary"
-            danger
-            onClick={() => {
-              setFeedback(true);
-            }}
-          >
-            Đánh giá
-          </Button>
-        </div>
-      </RoomFeedbackX>
-      <ShowFeedbackModal
-        open={open}
-        onCancel={() => setOpen(false)}
-        cancelButtonProps={{ style: { display: "none" } }}
-        okButtonProps={{ style: { display: "none" } }}
-        centered={true}
-        width={1000}
-        paddingContentHorizontal={0}
-      >
-        <div className="modal_container">
-          <div className="modal_left">
-            <div className="modal_section">
-              <div>
-                <h2>
-                  <ModalHeading>
-                    <div>
-                      <FontAwesomeIcon icon={faStar} />
+                <div className="mt-11">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <div className="text-center">
+                            <Rate
+                                onChange={(number) => {
+                                    setValue("saoBinhLuan", Number(number))
+                                }}
+                            />
+                            <p className="text-red-500">
+                                {errors?.saoBinhLuan?.message as string}
+                            </p>
+                        </div>
+                        <div className="mt-[1rem]">
+                            <textarea
+                                className="border-1 cursor-text w-full"
+                                {...register("noiDung")}
+                            />
+                            <p className="text-red-500">
+                                {errors?.noiDung?.message as string}
+                            </p>
+                        </div>
+                        <div className="hidden">
+                            <input
+                                type="text"
+                                {...register("ngayBinhLuan")}
+                                value={date}
+                            />
+                            <input
+                                type="number"
+                                value={Number(user?.id)}
+                                {...register("maNguoiBinhLuan")}
+                            />
+                            <input
+                                type="number"
+                                {...register("maPhong")}
+                                value={Number(phongId)}
+                            />
+                        </div>
+                        <div className="text-center mt-[1rem]">
+                            <Button
+                                size="large"
+                                type="primary"
+                                htmlType="submit"
+                                danger
+                                style={{ padding: "0 12px" }}
+                            >
+                                Gửi đánh giá
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            </FeedbackModal>
+            <ShowFeedbackModal
+                open={open}
+                onCancel={() => setOpen(false)}
+                cancelButtonProps={{ style: { display: "none" } }}
+                okButtonProps={{ style: { display: "none" } }}
+                centered={true}
+                width={1000}
+                paddingContentHorizontal={0}
+            >
+                <div className="modal_container">
+                    <div className="modal_left">
+                        <div className="modal_section">
+                            <div>
+                                <h2>
+                                    <ModalHeading>
+                                        <div>
+                                            <FontAwesomeIcon icon={faStar} />
+                                        </div>
+                                        <div>
+                                            {rateAverage} · {comments?.length} đánh giá
+                                        </div>
+                                    </ModalHeading>
+                                </h2>
+                            </div>
+                        </div>
+                        <div className="flex gap-4">
+                            <Progress
+                                percent={rateAverage * 5}
+                                showInfo={false}
+                                strokeColor={"black"}
+                            />{" "}
+                            {rateAverage}
+                        </div>
                     </div>
-                    <div>
-                      {rateAverage} · {comments?.length} đánh giá
+                    <div className="modal_right">
+                        {comments.map((comment) => {
+                            return (
+                                <CommentBox key={comment.id}>
+                                    <div className="comment_header">
+                                        <div className="cmt_avatar">
+                                            <Avatar src={comment.avatar} />
+                                        </div>
+                                        <div className="cmt_user">
+                                            <span className="cmt_username">
+                                                {comment.tenNguoiBinhLuan}
+                                            </span>
+                                            <span className="cmt_date">
+                                                {convertCommentDate(comment.ngayBinhLuan)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="comment_content">
+                                        <p>{comment.noiDung}</p>
+                                    </div>
+                                </CommentBox>
+                            );
+                        })}
                     </div>
-                  </ModalHeading>
-                </h2>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <Progress
-                percent={rateAverage * 5}
-                showInfo={false}
-                strokeColor={"black"}
-              />{" "}
-              {rateAverage}
-            </div>
-          </div>
-          <div className="modal_right">
-            {comments.map((comment) => {
-              return (
-                <CommentBox key={comment.id}>
-                  <div className="comment_header">
-                    <div className="cmt_avatar">
-                      <Avatar src={comment.avatar} />
-                    </div>
-                    <div className="cmt_user">
-                      <span className="cmt_username">
-                        {comment.tenNguoiBinhLuan}
-                      </span>
-                      <span className="cmt_date">
-                        {convertCommentDate(comment.ngayBinhLuan)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="comment_content">
-                    <p>{comment.noiDung}</p>
-                  </div>
-                </CommentBox>
-              );
-            })}
-          </div>
-        </div>
-      </ShowFeedbackModal>
-      <FeedbackModal
-        open={feedback}
-        onCancel={() => setFeedback(false)}
-        cancelButtonProps={{ style: { display: "none" } }}
-        okButtonProps={{ style: { display: "none" } }}
-        paddingContentHorizontal={0}
-      ></FeedbackModal>
-    </>
-  );
+                </div>
+            </ShowFeedbackModal>
+        </>
+    );
 };
 
 export default RoomFeedback;

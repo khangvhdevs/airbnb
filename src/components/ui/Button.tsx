@@ -1,6 +1,8 @@
 import { Button as ButtonX, ButtonProps as ButtonPropsX, ConfigProvider } from "antd";
+import { HTMLInputTypeAttribute } from "react";
 
 type ButtonProps = ButtonPropsX & {
+    type?: HTMLInputTypeAttribute
     colorBgContainer?: string
     colorBorder?: string
     colorPrimaryActive?: string

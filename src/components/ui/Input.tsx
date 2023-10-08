@@ -10,12 +10,14 @@ type InputProps = {
   label?: string;
   className?: string;
   disabled?: boolean;
+  value?: string;
 };
 export const Input = ({
   register,
   error,
   name,
   type,
+  value,
   placeholder,
   label,
   className,
@@ -28,6 +30,7 @@ export const Input = ({
         type={type}
         disabled={disabled}
         placeholder={placeholder}
+        value={value}
         {...register(name)}
         className="outline-none block w-full p-10 text-white border border-white-300 rounded-lg bg-[#333]  focus:ring-blue-500 focus:border-rose-200 "
       />

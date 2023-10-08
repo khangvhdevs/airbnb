@@ -31,6 +31,7 @@ const quanLyPhongSlice = createSlice({
             })
             .addCase(getRoomByIdThunk.fulfilled, (state, { payload }) => {
                 state.Room = payload
+                localStorage.setItem("currentRoomIdView", JSON.stringify(payload.id))
             })
     },
 })
