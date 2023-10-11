@@ -1,33 +1,29 @@
-import { Progress as ProgressX, ProgressProps as ProgressPropsX, ConfigProvider } from "antd"
+import {
+  Progress as ProgressX,
+  ProgressProps as ProgressPropsX,
+  ConfigProvider,
+} from "antd";
 
-type ProgressProps = ProgressPropsX & {
+type ProgressProps = ProgressPropsX & {};
+// type token = {
 
-}
-type token = {
+// }
 
-}
-
-type Progress = {
-
-}
+// type Progress = {};
 
 export const Progress = (props: ProgressProps) => {
-    return (
-        <ConfigProvider
-            theme={{
-                components: {
-                    Progress: {
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Progress: {},
+        },
+        token: {},
+      }}
+    >
+      <ProgressX {...props} />
+    </ConfigProvider>
+  );
+};
 
-                    }
-                },
-                token: {
-
-                }
-            }}
-        >
-            <ProgressX {...props} />
-        </ConfigProvider>
-    )
-}
-
-export default Progress
+export default Progress;
