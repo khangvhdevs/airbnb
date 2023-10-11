@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
+  BankOutlined,
+  FileImageOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -30,18 +28,9 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem("Option 1", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
+  getItem("Người Dùng", "sub1", <UserOutlined />),
+  getItem("Thông Tin Vị Trí", "sub2", <FileImageOutlined />),
+  getItem("Thông Tin Phòng", "9", <BankOutlined />),
 ];
 export const AdminLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -52,7 +41,12 @@ export const AdminLayout: React.FC = () => {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
-        {/* <div className="demo-logo-vertical" /> */}
+        <div className="demo-logo-vertical">
+          <img
+            src="/images/logo-header.png"
+            className="w-full h-full px-[30px] py-[10px]"
+          />
+        </div>
         <Menu
           theme="dark"
           defaultSelectedKeys={["1"]}
@@ -61,7 +55,14 @@ export const AdminLayout: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0 }} />
+        <Header
+          style={{ padding: 0 }}
+          className="!bg-rose-200 flex justify-end items-center"
+        >
+          <div className="flex items-center rounded-full border border-blue-600 h-[40px] w-[40px] mr-[10px]">
+            <UserOutlined className="w-7 h-7 ml-[12px]" />
+          </div>
+        </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             {/* <Breadcrumb.Item>User</Breadcrumb.Item>
