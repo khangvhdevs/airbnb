@@ -1,17 +1,21 @@
 import { Footer, Header } from "components/ui";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-
-export const MainLayout = () => {
-    return (
-        <>
-            <MainLayoutX>
-                <Header />
-                <Outlet />
-                <Footer />
-            </MainLayoutX>
-        </>
-    );
+import { ViTri } from "types";
+interface ParentProps {
+  LocationHeader: ViTri[];
+  type: string;
+}
+export const MainLayout: React.FC<ParentProps> = ({ LocationHeader, type }) => {
+  return (
+    <>
+      <MainLayoutX>
+        <Header LocationHeader={LocationHeader} type={type} />
+        <Outlet />
+        <Footer />
+      </MainLayoutX>
+    </>
+  );
 };
 
 export default MainLayout;
