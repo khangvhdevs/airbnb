@@ -6,6 +6,7 @@ const api = apiInstance({
 })
 
 export const quanLyPhongServices = {
+    getRooms: () => api.get<ApiResponse<RoomsByLocation[]>>(''),
     getRoomsByLocation: (params: CityIdType) => api.get<ApiResponse<RoomsByLocation[]>>('/lay-phong-theo-vi-tri', {
         params
     }),
