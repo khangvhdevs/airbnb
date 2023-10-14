@@ -11,9 +11,18 @@ export interface PhanTrangViTri {
     data: ViTri[]
 }
 export interface ViTri {
+    id?: number
+    tenViTri?: string
+    tinhThanh?: string
+    quocGia?: string
+    hinhAnh?: string
+}
+export interface UploadHinhViTri {
+    formData: FormData
+    maViTri: number
+}
+
+export interface UpdateViTri {
     id: number
-    tenViTri: string
-    tinhThanh: string
-    quocGia: string
-    hinhAnh: string
+    payload: ViTri
 }

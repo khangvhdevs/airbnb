@@ -1,15 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { AlertSuccess, Button, InputX, Modal } from "components/ui"
+import { Button } from "antd"
+import { AlertSuccess, InputX, Modal } from "components/ui"
+import { useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { LocationSchema, LocationSchemaType } from "schema/LocationSchema"
-import { useAppDispatch } from "store"
-import { quanLyViTriActions } from "store/quanLyViTri/slice"
-import { postLocationThunk } from "store/quanLyViTri/thunk"
+import { useSelector } from "react-redux"
+import { LocationSchema, LocationSchemaType } from "schema"
+import { RootState, useAppDispatch } from "store"
+import { updateLocationThunk } from "store/quanLyViTri/thunk"
 import styled from "styled-components"
 
-export const CreateModal = ({ modal, setModal, setUpload }) => {
+export const UpdateModal = ({ setUpdate, update }) => {
+    const { currentLocation, Locations } = useSelector((state: RootState) => state.quanLyViTri)
     const dispatch = useAppDispatch()
     const {
+        reset,
         handleSubmit,
         register,
         formState: { errors },
@@ -18,27 +22,31 @@ export const CreateModal = ({ modal, setModal, setUpload }) => {
         resolver: zodResolver(LocationSchema),
     })
 
+    useEffect(() => {
+        reset({
+            ...currentLocation
+        })
+    }, [currentLocation, reset, Locations])
+
     const onSubmit: SubmitHandler<LocationSchemaType> = (async (value) => {
-        dispatch(postLocationThunk(value))
+        const payload = { id: currentLocation.id, payload: value }
+        dispatch(updateLocationThunk(payload))
             .unwrap()
-            .then((value) => {
-                setModal(false)
-                setUpload(true)
-                dispatch(quanLyViTriActions.setCurrentLocation(value))
-                AlertSuccess({ title: "thêm thành công", confirmButtonText: "Đóng" })
+            .then(() => {
+                AlertSuccess({ title: "Cập nhật thành công", confirmButtonText: "Đóng" })
             })
     })
+
     return (
         <Modal
-            open={modal}
-            onCancel={() => setModal(false)}
+            open={update}
+            onCancel={() => setUpdate(false)}
             cancelButtonProps={{ style: { display: "none" } }}
             okButtonProps={{ style: { display: "none" } }}
             width={1000}
             paddingContentHorizontal={0}
         >
-            <div className="pt-[1rem]">
-                <h3 className="text-22 font-600">Thông tin vị trí</h3>
+            <div className="pt-[2rem]">
                 <Form
                     onSubmit={handleSubmit(onSubmit)}
                 >
@@ -87,7 +95,7 @@ export const CreateModal = ({ modal, setModal, setUpload }) => {
                                 padding: "0 10px",
                             }}
                         >
-                            Lưu & Tiếp tục
+                            Cập nhật
                         </Button>
                     </div>
                 </Form>
@@ -96,7 +104,7 @@ export const CreateModal = ({ modal, setModal, setUpload }) => {
     )
 }
 
-export default CreateModal
+export default UpdateModal
 
 const Form = styled.form`
     .input_container {
