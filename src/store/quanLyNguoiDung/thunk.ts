@@ -39,3 +39,14 @@ export const uploadAvatarThunk = createAsyncThunk('quanLyNguoiDung/uploadAvatarT
         return rejectWithValue(error)
     }
 })
+
+export const getUserThunk = createAsyncThunk('quanLyNguoiDung/getUser',async(_,{rejectWithValue}) => {
+    try {
+        const data = await quanLyNguoiDungServices.getUser()
+        console.log("data của getuser tại apithunk", data);
+        return data.data.content
+    } catch (error) {
+        return rejectWithValue(error)
+    }
+})
+

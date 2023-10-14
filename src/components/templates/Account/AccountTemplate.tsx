@@ -315,7 +315,7 @@ export const AccountTemplate = () => {
               <div className="div-represent mb-3">
                 <div className="mt-10 w-[80%]">
                   <select
-                    className="outline-none block w-full p-8 border border-blue-500 rounded-lg bg-[#ffffff] focus:ring-blue-500 focus:border-rose-500"
+                    className="outline-none block w-full p-8 border border-blue-500 rounded-lg bg-[#ffffff] focus:border-rose-500"
                     {...register("gender")}
                   >
                     <option value="">Chọn giới tính</option>

@@ -4,34 +4,13 @@ import {
   FileImageOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu } from "antd";
-import { Outlet } from "react-router-dom";
-// import Users from "./Users/Users";
+import { Breadcrumb, Layout } from "antd";
+import { NavLink, Outlet } from "react-router-dom";
+import { Menu } from "components/ui";
+import { PATH } from "constant";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem("Người Dùng", "sub1", <UserOutlined />),
-  getItem("Thông Tin Vị Trí", "sub2", <FileImageOutlined />),
-  getItem("Thông Tin Phòng", "9", <BankOutlined />),
-];
 export const AdminLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
@@ -47,17 +26,32 @@ export const AdminLayout: React.FC = () => {
             className="w-full h-full px-[30px] py-[10px]"
           />
         </div>
-        <Menu
+        {/* <Menu
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
           items={items}
-        />
+        /> */}
+        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+          <Menu.Item key="1" title="Người dùng" icon={<UserOutlined />}>
+            <NavLink to={PATH.users}>Người dùng</NavLink>
+          </Menu.Item>
+          <Menu.Item
+            key="2"
+            title="Thông Tin Vị Trí"
+            icon={<FileImageOutlined />}
+          >
+            <NavLink to={PATH.location}>Thông tin vị trí</NavLink>
+          </Menu.Item>
+          <Menu.Item key="3" title="Thông Tin Phòng" icon={<BankOutlined />}>
+            Thông tin phòng
+          </Menu.Item>
+        </Menu>
       </Sider>
       <Layout>
         <Header
           style={{ padding: 0 }}
-          className="!bg-rose-200 flex justify-end items-center"
+          className="!bg-rose-400 flex justify-end items-center"
         >
           <div className="flex items-center rounded-full border border-blue-600 h-[40px] w-[40px] mr-[10px]">
             <UserOutlined className="w-7 h-7 ml-[12px]" />

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Content, User } from "types";
-import { getUserIDThunk, loginThunk, uploadAvatarThunk } from "./thunk";
+import { getUserIDThunk, getUserThunk, loginThunk, uploadAvatarThunk } from "./thunk";
 
 type QuanLyNguoiDungInitialState = {
   userLogin?: Content<User>;
   accessToken?: string;
   getUserID?: & User;
+  getUser?: User[];
 };
 const initialState: QuanLyNguoiDungInitialState = {
   // userLogin: {
@@ -64,6 +65,9 @@ const quanLyNguoiDungSlice = createSlice({
       .addCase(uploadAvatarThunk.fulfilled, ( state, { payload } ) => {
         console.log("uploadAvatarThunk", payload);
         state.getUserID = payload
+      })
+      .addCase(getUserThunk.fulfilled, ( state, { payload } ) => {
+        state.getUser = payload
       })
   },
 });
