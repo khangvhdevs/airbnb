@@ -7,7 +7,6 @@ import { postRoomThunk } from "store/quanLyPhong/thunk";
 import { quanLyPhongActions } from "store/quanLyPhong/slice";
 import styled from "styled-components";
 import { Switch } from "antd";
-import { SaveOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
