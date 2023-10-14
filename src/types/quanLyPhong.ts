@@ -23,3 +23,7 @@ export interface RoomsByLocation {
     maViTri: number
     hinhAnh: string
 }
+export interface UploadHinhPhong {
+    formData: FormData
+    maPhong: number
+}

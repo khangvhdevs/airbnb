@@ -1,4 +1,4 @@
-import { Image } from 'components/ui';
+import { AlertSuccess, Image } from 'components/ui';
 import { useAppDispatch } from 'store';
 import { RoomsByLocation } from 'types';
 import { SearchOutlined } from '@ant-design/icons';
@@ -7,12 +7,13 @@ import type { InputRef } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
-import { getRoomsThunk } from 'store/quanLyPhong/thunk';
+import { deleteRoomThunk, getRoomsThunk } from 'store/quanLyPhong/thunk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { quanLyPhongActions } from 'store/quanLyPhong/slice';
 
-export const DataTable = () => {
+export const DataTable = ({ setUpload, setUpdate }) => {
     const [data, setData] = useState<RoomsByLocation[]>();
     const [loading, setLoading] = useState(false);
     const dispatch = useAppDispatch()
@@ -122,17 +123,23 @@ export const DataTable = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
+    const deleteRoom = async (id: number) => {
+        dispatch(deleteRoomThunk(id))
+            .unwrap()
+            .then(() => {
+                AlertSuccess({ title: "Xóa thành công", confirmButtonText: "Đóng" })
+                fetchData()
+            })
+    }
     const columns: ColumnsType<RoomsByLocation> = [
         {
             title: 'ID',
             dataIndex: 'id',
-            width: '5%',
         },
         {
             title: 'Mã Vị Trí',
             dataIndex: 'maViTri',
-            width: '7%',
+            ...getColumnSearchProps("maViTri")
         },
         {
             title: 'Tên phòng',
@@ -142,38 +149,57 @@ export const DataTable = () => {
         {
             title: 'Hình ảnh',
             dataIndex: 'hinhAnh',
-            render: hinhAnh => <Image
-                src={hinhAnh}
-                style={{
-                    height: "40px",
-                    width: "50px",
-                    objectFit: "cover",
-                    borderRadius: "10px",
-                    overflow: "hidden"
-                }}
-            />
+            render: (_, data) => <Space size={"small"}>
+                <Image
+                    src={data.hinhAnh}
+                    style={{
+                        height: "40px",
+                        width: "50px",
+                        objectFit: "cover",
+                        borderRadius: "10px",
+                        overflow: "hidden"
+                    }}
+                />
+                <Button
+                    size='small'
+                    type='dashed'
+                    icon={<FontAwesomeIcon icon={faEdit} />}
+                    onClick={() => {
+                        dispatch(quanLyPhongActions.setCurrentRoom(data))
+                        setUpload(true)
+                    }}
+                />
+            </Space>
             ,
         },
         {
             title: 'Action',
             dataIndex: '',
             key: 'x',
-            render: () => <div>
+            render: (_, data) => <Space size={'small'}>
                 <Button
+                    size='small'
                     type='primary'
                     title='sửa'
-                    className='mr-1'
+                    onClick={() => {
+                        dispatch(quanLyPhongActions.setCurrentRoom(data))
+                        setUpdate(true)
+                    }}
                 >
                     <FontAwesomeIcon icon={faEdit} />
                 </Button>
                 <Button
+                    size='small'
                     type='primary'
                     danger
                     title='xóa'
+                    onClick={() => {
+                        deleteRoom(data.id)
+                    }}
                 >
                     <FontAwesomeIcon icon={faTrashAlt} />
                 </Button>
-            </div>,
+            </Space>
         },
     ];
 
