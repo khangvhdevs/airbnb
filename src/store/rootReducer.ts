@@ -11,5 +11,4 @@ export const rootReducer = combineReducers({
     quanLyPhong: quanLyPhongReducer,
     quanLyDatPhong: quanLyDatPhongReducer,
     quanLyBinhLuan: quanLyBinhLuanReducer,
-    quanLyDatPhong: quanLyDatPhongReducer,
 })
