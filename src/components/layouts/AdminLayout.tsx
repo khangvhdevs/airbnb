@@ -89,7 +89,7 @@ export const AdminLayout: React.FC = () => {
             <div className="nav-user flex justify-center items-center gap-[12px] rounded-full border-[2px] border-green-500 h-[40px] w-[80px] py-[20px] pr-[24px] pl-[28px] mt-[5px] mr-[15px] bg-yellow-50 cursor-pointer">
               {!getUserID?.avatar ? (
                 <div className="bg-green-400 text-white rounded-full text-center w-7 h-7 ">
-                  {/* <UserOutlined className="w-full h-full" /> */}
+                  {/* <UserOutlined className="w-full h-full mr-[7px]" /> */}
                 </div>
               ) : (
                 <img

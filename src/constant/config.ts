@@ -4,6 +4,8 @@ export const PATH = {
     roomslist: '/rooms/:maViTri',
     account: '/account',
     roomdetails: '/roomdetails/:id',
-    users: "/admin/users",
-    location: "/admin/location"
+    admin: "admin",
+    users: "users",
+    location: "location",
+    room: "room",
 }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getRoomByIdThunk, getRoomsByLocationThunk } from "./thunk"
+import { getRoomByIdThunk, getRoomsByLocationThunk, getRoomsThunk } from "./thunk"
 import { RoomsByLocation } from "types"
 
 type quanLyPhongInitialState = {
@@ -19,6 +19,10 @@ const quanLyPhongSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
+            .addCase(getRoomsThunk.fulfilled, (state, { payload }) => {
+                state.RoomsByLocationList = payload
+                state.isFetchingRoom = false
+            })
             .addCase(getRoomsByLocationThunk.fulfilled, (state, { payload }) => {
                 state.RoomsByLocationList = payload
                 state.isFetchingRoom = false
