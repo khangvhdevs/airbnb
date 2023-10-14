@@ -6,6 +6,7 @@ type quanLyPhongInitialState = {
     RoomsByLocationList?: RoomsByLocation[]
     Room?: RoomsByLocation
     isFetchingRoom: boolean
+    currentRoom?: RoomsByLocation
 }
 
 const initialState: quanLyPhongInitialState = {
@@ -16,7 +17,11 @@ const initialState: quanLyPhongInitialState = {
 const quanLyPhongSlice = createSlice({
     name: "quanLyPhong",
     initialState,
-    reducers: {},
+    reducers: {
+        setCurrentRoom: (state, { payload }) => {
+            state.currentRoom = payload
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(getRoomsThunk.fulfilled, (state, { payload }) => {

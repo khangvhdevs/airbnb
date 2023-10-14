@@ -9,6 +9,7 @@ export const rootReducer = combineReducers({
     quanLyNguoiDung: quanLyNguoiDungReducer,
     quanLyViTri: quanLyViTriReducer,
     quanLyPhong: quanLyPhongReducer,
+    quanLyDatPhong: quanLyDatPhongReducer,
     quanLyBinhLuan: quanLyBinhLuanReducer,
     quanLyDatPhong: quanLyDatPhongReducer,
 })
