@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { getBookingThunk } from "./thunk"
 
 type QuanLyDatPhongInitialState = {
+    maNguoiDung?: any
 }
 
 const initialState: QuanLyDatPhongInitialState = {
@@ -13,9 +15,9 @@ const quanLyDatPhongSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-        // .addCase(postBookingThunk.fulfilled, (state, {payload}) => {
-        //     state.
-        // })
+        .addCase(getBookingThunk.fulfilled, (state, {payload}) => {
+            state.maNguoiDung = payload
+        })
     },
 })
 

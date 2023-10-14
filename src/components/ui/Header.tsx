@@ -180,7 +180,7 @@ export const Header: React.FC<ParentProps> = () => {
                 <div>
                   <h2 className="font-600 mb-10 p-10">Hi! {getUserID?.name}</h2>
                   <div
-                    className="!p-10 !mt-5 w-[150px] cursor-pointer hover:bg-gray-500 hover:text-white rounded-lg transition-all duration-300"
+                    className="!p-10 !mt-5 w-[150px] cursor-pointer hover:bg-rose-500 hover:text-white rounded-lg transition-all duration-300"
                     onClick={() => {
                       navigate(PATH.account);
                     }}
@@ -188,7 +188,15 @@ export const Header: React.FC<ParentProps> = () => {
                     Thông tin tài khoản
                   </div>
                   <div
-                    className="!p-10 !mt-5 cursor-pointer hover:bg-gray-500 hover:text-white rounded-lg transition-all duration-300"
+                    className="!p-10 !mt-5 w-[150px] cursor-pointer hover:bg-rose-500 hover:text-white rounded-lg transition-all duration-300"
+                    onClick={() => {
+                      navigate(PATH.roomchecked);
+                    }}
+                  >
+                    Phòng bạn đã đặt
+                  </div>
+                  <div
+                    className="!p-10 !mt-5 cursor-pointer hover:bg-rose-500 hover:text-white rounded-lg transition-all duration-300"
                     onClick={() => {
                       dispatch(quanLyNguoiDungActions.logout());
                       showSuccess("Đã đăng xuất tài khoản!");

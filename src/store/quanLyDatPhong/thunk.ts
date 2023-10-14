@@ -10,3 +10,11 @@ export const postBookingThunk = createAsyncThunk('quanLyDatPhong/postBookingThun
         rejectWithValue(error)
     }
 })
+export const getBookingThunk = createAsyncThunk('quanLyDatPhong/getBookingThunk', async (maNguoiDung:number, { rejectWithValue }) => {
+    try {
+        const data = await quanLyDatPhongServices.getBooking(maNguoiDung)
+        return data.data.content
+    } catch (error) {
+        rejectWithValue(error)
+    }
+})

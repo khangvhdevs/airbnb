@@ -59,7 +59,7 @@ export const AdminLayout: React.FC = () => {
             <NavLink to={PATH.location}>Thông tin vị trí</NavLink>
           </Menu.Item>
           <Menu.Item key="3" title="Thông Tin Phòng" icon={<BankOutlined />}>
-            Thông tin phòng
+            <NavLink to={PATH.room}> Thông tin phòng</NavLink>
           </Menu.Item>
         </Menu>
       </Sider>

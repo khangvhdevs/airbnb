@@ -3,6 +3,7 @@ export const PATH = {
     register: '/register',
     roomslist: '/rooms/:maViTri',
     account: '/account',
+    roomchecked: '/roomchecked',
     roomdetails: '/roomdetails/:id',
     admin: "admin",
     users: "users",

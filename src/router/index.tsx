@@ -7,6 +7,7 @@ import { RouteObject } from "react-router-dom";
 import { ViTri } from "types";
 import Users from "components/templates/Admin/Users/Users";
 import { Locations, Rooms } from "pages/Admin";
+import { RoomChecked } from "components/templates";
 
 interface ParentProps {
   LocationHeader: ViTri[];
@@ -33,6 +34,10 @@ export const router: RouteObject[] = [
       {
         path: PATH.roomdetails,
         element: <RoomDetails />,
+      },
+      {
+        path: PATH.roomchecked,
+        element: <RoomChecked />,
       },
     ],
   },

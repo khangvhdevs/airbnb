@@ -7,5 +7,6 @@ const api = apiInstance({
 })
 
 export const quanLyDatPhongServices = {
-    postBooking: (payload: BookingSchemaType) => api.post<ApiResponse<Content<DatPhong>>>('', payload)
+    postBooking: (payload: BookingSchemaType) => api.post<ApiResponse<Content<DatPhong>>>('', payload),
+    getBooking: (maNguoiDung:number) => api.get<ApiResponse<DatPhong>>(`/lay-theo-nguoi-dung/${maNguoiDung}`)
 }
