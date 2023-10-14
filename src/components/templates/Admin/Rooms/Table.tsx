@@ -21,6 +21,7 @@ export const DataTable = ({ setUpload, setUpdate }) => {
     type DataIndex = keyof RoomsByLocation;
 
     const [searchText, setSearchText] = useState('');
+    console.log({ searchText });
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef<InputRef>(null);
 
