@@ -61,7 +61,6 @@ export const AccountTemplate = () => {
   const id = String(getUserID?.id);
   const onSubmit: SubmitHandler<AccountSchemaType> = (payload) => {
     const param = { id, payload };
-    console.log("payload", payload);
     dispatch(putUserIDThunk(param))
       .unwrap()
       .then(() => {
@@ -93,7 +92,6 @@ export const AccountTemplate = () => {
     setInitialBirthday(moment(moment(getUserID?.birthday, "DD/MM/YYYY")));
     setDatePickerNull(true);
   }, [getUserID, reset]);
-  console.log("getUserID", getUserID);
 
   return (
     <Account>

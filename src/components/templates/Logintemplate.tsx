@@ -4,14 +4,32 @@ import { PATH } from "constant";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { LoginSchema, LoginSchemaType } from "schema";
-import { useAppDispatch } from "store";
+import { RootState, useAppDispatch } from "store";
 import { loginThunk } from "store/quanLyNguoiDung/thunk";
-// import { toast } from "react-toastify";
 import { showSuccess } from "../../main";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Logintemplate = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { role } = useSelector((state: RootState) => {
+    return state.quanLyNguoiDung;
+  });
+  const [roleUser, setRoleUser] = useState(role);
+  console.log("role", roleUser);
+  useEffect(() => {
+    if (role) {
+      setRoleUser(role);
+      if (role === "User") {
+        showSuccess("Đăng nhập thành công!");
+        navigate("/");
+      } else if (role === "Admin") {
+        showSuccess("Đăng nhập admin");
+        navigate("/admin/users");
+      }
+    }
+  }, [role, navigate]);
   const {
     handleSubmit,
     register,
@@ -20,15 +38,10 @@ export const Logintemplate = () => {
     mode: "onChange",
     resolver: zodResolver(LoginSchema),
   });
+
   const onSubmit: SubmitHandler<LoginSchemaType> = async (value) => {
     console.log("value", value);
-    dispatch(loginThunk(value))
-      .unwrap()
-      .then(() => {
-        // toast.success("Đăng nhập thành công!");
-        showSuccess("Đăng nhập thành công!");
-        navigate("/");
-      });
+    dispatch(loginThunk(value)).unwrap();
   };
   return (
     <form className="pt-[15px] pb-[15px]" onSubmit={handleSubmit(onSubmit)}>

@@ -7,6 +7,8 @@ type QuanLyNguoiDungInitialState = {
   accessToken?: string;
   getUserID?: & User;
   getUser?: User[];
+  idUser?:number
+  role?:string
 };
 const initialState: QuanLyNguoiDungInitialState = {
   // userLogin: {
@@ -44,8 +46,10 @@ const quanLyNguoiDungSlice = createSlice({
     logout: (state) => {
       state.userLogin = undefined;
       state.getUserID = undefined;
+      state.role = undefined;
       localStorage.removeItem("idUser")
       localStorage.removeItem("tenViTri")
+      localStorage.removeItem("role")
     },
   },
   extraReducers: (builder) => {
@@ -53,6 +57,8 @@ const quanLyNguoiDungSlice = createSlice({
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.userLogin = payload;
         console.log("payload", payload);
+        state.idUser = payload?.user?.id;
+        state.role = payload?.user?.role;
         if (payload) {
             localStorage.setItem("idUser",String(payload?.user?.id))
             localStorage.setItem("token",payload.token)
@@ -60,10 +66,8 @@ const quanLyNguoiDungSlice = createSlice({
         })
       .addCase(getUserIDThunk.fulfilled, (state, { payload }) => {
         state.getUserID = payload
-        console.log("payload getUserID", payload);
       })
       .addCase(uploadAvatarThunk.fulfilled, ( state, { payload } ) => {
-        console.log("uploadAvatarThunk", payload);
         state.getUserID = payload
       })
       .addCase(getUserThunk.fulfilled, ( state, { payload } ) => {

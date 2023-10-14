@@ -29,7 +29,6 @@ export const Header: React.FC<ParentProps> = () => {
   const { getUserID } = useSelector((state: RootState) => {
     return state.quanLyNguoiDung;
   });
-  console.log("getUserID", getUserID);
 
   const { LocationHeader } = useSelector(
     (state: RootState) => state.quanLyViTri
@@ -205,7 +204,7 @@ export const Header: React.FC<ParentProps> = () => {
                 <BarsOutlined />
                 {!getUserID?.avatar ? (
                   <div className="bg-green-300 text-white rounded-full text-center w-7 h-7">
-                    <UserOutlined className="w-full h-full" />
+                    <UserOutlined className="w-full h-full mr-[7px]" />
                   </div>
                 ) : (
                   <img

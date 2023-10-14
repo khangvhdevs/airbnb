@@ -6,25 +6,6 @@ import { NavigateFunction, generatePath, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ViTri } from "types/quanLyViTri";
 
-// const ChildComponent: React.FC<LocationHeaderProps> = ({ LocationHeader }) => {
-//   console.log("LocationHeader-ChildComponent", LocationHeader);
-//   return (
-//     <div className="text-left search-item">
-//       <div className="border-right ml-[30px] py-[11px]">
-//         <p className=" text-[13px] font-medium ">Địa điểm </p>
-//         <input className="text-[15px]"></input>
-//         <select name="" id="" className="w-full">
-//           {LocationHeader.map((item) => (
-//             <option key={item.id}>
-//               {item.tenViTri}, {item.tinhThanh}, {item.quocGia}
-//             </option>
-//           ))}
-//         </select>
-//       </div>
-//     </div>
-//   );
-// };
-
 interface TabData {
   id: number;
   title: JSX.Element;
@@ -260,7 +241,6 @@ const Active: React.FC<LocationHeaderProps> = ({ LocationHeader }) => {
     setShowDropdown(filteredOptions.length > 0);
   };
   const handleOptionClick = (option) => {
-    console.log("option từ dropdown", option);
     setSelectedOption(option);
     setSearchValueInput(`${option.tenViTri}` + ", " + `${option.tinhThanh}`);
     setShowDropdown(false);

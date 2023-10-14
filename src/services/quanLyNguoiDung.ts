@@ -14,7 +14,7 @@ export const quanLyNguoiDungServices = {
     register: (payload: RegisterSchemaType) => api.post<ApiResponse<User>>('/signup',payload),
     getUser: () => apiGetUserID.get<ApiResponse<User[]>>(""),
     postUser: (payload: RegisterSchemaType) => apiGetUserID.post<ApiResponse<User>>("",payload),
-    deleteUser: (id:string) => apiGetUserID.delete<ApiResponse<User>>(`/${id}`),
+    deleteUser: (id:number) => apiGetUserID.delete<ApiResponse<User>>(`?id=${id}`),
     getUserID: (id:string) => apiGetUserID.get<ApiResponse<User>>(`/${id}`),
     putUserID: (id:string, payload: User) => apiGetUserID.put<ApiResponse<User>>(`/${id}`,payload),
     uploadAvatar: (payload:any) => apiGetUserID.post('/upload-avatar',payload)
